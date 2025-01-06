@@ -7,6 +7,11 @@ const transactionSchema = new Schema(
     walletId: { type: Schema.Types.ObjectId, ref: "Wallet", required: true },
     type: { type: String, enum: ["credit", "debit"], required: true },
     amount: { type: Number, required: true },
+    paymentMethod: {
+      type: String,
+      enum: ["card", "wallet", "bank", "transfer"],
+      default: "bank",
+    },
     description: { type: String },
     status: {
       type: String,
