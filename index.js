@@ -1,28 +1,45 @@
-import express from 'express';
-import cors from 'cors';
-import morgan from 'morgan';
-import cookieParser from 'cookie-parser';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 dotenv.config();
+import cors from "cors";
+import morgan from "morgan";
+import cookieParser from "cookie-parser";
+import authRoutes from "./routes/Auth.js";
+import userRoutes from "./routes/User.js";
 
+const db = process.env.MONGO_URI;
+
+// server init
 const app = express();
-const port = process.env.PORT;
 
-app.use(cors({
+// database connection
+mongoose
+  .connect(db, {})
+  .then(() => console.log("Connected to db"))
+  .catch((error) => console.log("Error:", error));
+
+// middlewares
+app.use(
+  cors({
     origin: process.env.ORIGIN,
     credentials: true,
     exposedHeaders: ["X-Total-Count"],
-    methods: ["GET", "POST", "PATCH", "DELETE"]
-}));
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
-app.use(morgan('tiny'));
+app.use(morgan("tiny"));
 
-app.get('/', (req, res) => {
-    res.send('Hello from our server!')
+// route middleware
+app.use("/auth", authRoutes);
+app.use("/users", userRoutes);
+
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "running" });
 });
 
-app.listen(port, () => {
-    console.log('Server running on http://localhost:8080');
+app.listen(3000, () => {
+  console.log("Server running http://localhost:3000");
 });
