@@ -30,3 +30,33 @@ export const getTransactionsByUserId = async (req, res) => {
     res.status(500).json({ message: "Error retrieving transactions.", error });
   }
 };
+
+// Get all transactions for a user
+export const getTransactionsByUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const transactions = await Transaction.find({ user: userId });
+    res.status(200).json(transactions);
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving transactions.", error });
+  }
+};
+
+// Update transaction status
+export const updateTransactionStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    const transaction = await Transaction.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true }
+    );
+    if (!transaction) {
+      return res.status(404).json({ message: "Transaction not found." });
+    }
+    res.status(200).json(transaction);
+  } catch (error) {
+    res.status(500).json({ message: "Error updating transaction.", error });
+  }
+};

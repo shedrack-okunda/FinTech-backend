@@ -44,3 +44,17 @@ export const updateWalletBalance = async (req, res) => {
     res.status(500).json({ message: "Error updating wallet balance.", error });
   }
 };
+
+// Delete a wallet
+export const deleteWallet = async (req, res) => {
+  try {
+    const { walletId } = req.params;
+    const wallet = await Wallet.findByIdAndDelete(walletId);
+    if (!wallet) {
+      return res.status(404).json({ message: "Wallet not found." });
+    }
+    res.status(200).json({ message: "Wallet deleted successfully." });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting wallet.", error });
+  }
+};
