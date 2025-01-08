@@ -10,7 +10,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const signup = async (req, res) => {
-  const { email, password } = req.body;
+  const { firstName, lastName, email, phoneNumber, password } = req.body;
 
   try {
     const existingUser = await User.findOne({ email });
@@ -25,7 +25,15 @@ export const signup = async (req, res) => {
     req.body.password = hashedPassword;
 
     // creating new user
-    const createdUser = new User(req.body);
+    const userPayload = {
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      password: hashedPassword,
+    };
+
+    const createdUser = new User(userPayload);
     await createdUser.save();
 
     // getting secure user info
