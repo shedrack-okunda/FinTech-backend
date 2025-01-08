@@ -1,11 +1,11 @@
 import express from "express";
-import { verifyToken } from "../middleware/VerifyToken";
+import { verifyToken } from "../middleware/VerifyToken.js";
 import {
   createTransaction,
   getTransactionsByUser,
   getTransactionsByUserId,
   updateTransactionStatus,
-} from "../controllers/Transaction";
+} from "../controllers/Transaction.js";
 
 const router = express.Router();
 

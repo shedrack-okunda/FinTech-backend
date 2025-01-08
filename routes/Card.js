@@ -1,12 +1,12 @@
 import express from "express";
-import { verifyToken } from "../middleware/VerifyToken";
+import { verifyToken } from "../middleware/VerifyToken.js";
 import {
   createCard,
   deleteCard,
   getCardsByUser,
   getCardsByUserId,
   updateCard,
-} from "../controllers/Card";
+} from "../controllers/Card.js";
 const router = express();
 
 router

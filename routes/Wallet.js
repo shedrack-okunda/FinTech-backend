@@ -1,11 +1,11 @@
 import express from "express";
-import { verifyToken } from "../middleware/VerifyToken";
+import { verifyToken } from "../middleware/VerifyToken.js";
 import {
   createWallet,
   deleteWallet,
   getWalletByUserId,
   updateWalletBalance,
-} from "../controllers/Wallet";
+} from "../controllers/Wallet.js";
 
 const router = express.Router();
 
