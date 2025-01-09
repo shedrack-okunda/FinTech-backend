@@ -25,7 +25,7 @@ export const signup = async (req, res) => {
     req.body.password = hashedPassword;
 
     // creating new user
-    const userPayload = {
+    const payload = {
       firstName,
       lastName,
       email,
@@ -33,7 +33,7 @@ export const signup = async (req, res) => {
       password: hashedPassword,
     };
 
-    const createdUser = new User(userPayload);
+    const createdUser = new User(payload);
     await createdUser.save();
 
     // getting secure user info
@@ -62,11 +62,11 @@ export const signup = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, firstName } = req.body;
 
   try {
     // checking if user exists or not
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email, firstName });
 
     // if the user exists and password matches the hash password
     if (
