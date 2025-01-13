@@ -62,11 +62,11 @@ export const signup = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  const { email, password, firstName } = req.body;
+  const { email, password } = req.body;
 
   try {
     // checking if user exists or not
-    const existingUser = await User.findOne({ email, firstName });
+    const existingUser = await User.findOne({ email });
 
     // if the user exists and password matches the hash password
     if (

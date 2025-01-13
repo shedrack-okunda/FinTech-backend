@@ -7,7 +7,6 @@ export const verifyToken = async (req, res, next) => {
   try {
     // extract the token from request cookies
     const { token } = req.cookies;
-    // console.log(token);
 
     // if token is not there return 401 response
     if (!token) {
