@@ -11,10 +11,10 @@ import {
 const router = express.Router();
 
 router
-  .post("/", createTransaction)
-  .get("/:id", getTransactionsByUserId)
-  .get("/user", getTransactionsByUser)
-  .get("/user", getPaginatedTransactionsByUser)
-  .patch("/:id/status", updateTransactionStatus);
+  .post("/", verifyToken, createTransaction)
+  .get("/:id", verifyToken, getTransactionsByUserId)
+  .get("/user", verifyToken, getTransactionsByUser)
+  .get("/user/paginated", verifyToken, getPaginatedTransactionsByUser)
+  .patch("/:id/status", verifyToken, updateTransactionStatus);
 
 export default router;
